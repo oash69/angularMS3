@@ -12,10 +12,33 @@
     </div>
     <div class="row">
       <div class="col-md-12 text-center">
-        Membre
+        
+          
+          Recherche d'un membre par son nom et prénom <br>
       </div>
     </div>
+    <form #searchForm="ngForm">
       <div class="row">
+        <div class="col-md-2 text-center"></div>
+        <div class="col-md-1 text-center">Nom:</div>
+        <div class="col-md-2 text-center">
+          <input type="text" [(ngModel)]="lastname" name="lastname" class="form-control">
+        </div>  
+        <div class="col-md-1 text-center">Prenom:</div>
+        <div class="col-md-2 text-center">
+          <input type="text" [(ngModel)]="firstname" name="firstname" class="form-control">
+        </div>
+        <div class="col-md-2 text-center">
+            <button type="button" (click)="onChangeMember();" class="btn btn-success">Charger membre</button>
+        </div>
+        <div class="col-md-2 text-center"></div>
+
+      </div>
+    </form>
+       
+    
+    <form #formulaire="ngForm"> 
+      <div *ngIf="member.nom" class="row">
         <div class="col-md-2"></div>
         <div class="col-md-4 border">
           <ul>
@@ -29,7 +52,7 @@
               Prenom : {{member.prenom}}
             </li>
             <li>
-              Téléphone : <input type="text" class="form-control" maxlength="14" pattern= "([0-9]|\\/)*" value="{{member.telephone}}"> 
+              Téléphone  : <input type="text" [maxLength]="14" [(ngModel)]="member.telephone" (keyup)="onChangePhone();" name="phone" class="form-control" pattern= "([0-9]|\\/)*"> 
             </li>
           </ul>
           
@@ -41,6 +64,13 @@
         </div>
         <div class="col-md-2"></div>
       </div>
+      
+      <div *ngIf="!member.nom" class="row error">
+        <div class=" col-md-12 text-center">
+          Membre introuvable
+        </div>
+      </div>
+    </form>    
     <router-outlet></router-outlet>
   </body>
 </html>
